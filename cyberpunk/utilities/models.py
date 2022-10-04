@@ -8,6 +8,9 @@ class SchoolsOfMagic(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Schools of Magic'
+
 
 class UtilityComponent(models.Model):
     Abbreviation = models.CharField(primary_key=True, max_length=1)
@@ -72,3 +75,6 @@ class Utility(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = 'Utilities'
