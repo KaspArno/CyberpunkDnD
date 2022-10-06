@@ -1,0 +1,74 @@
+<h1>{{ utility.name }}</h1>
+<div>
+    <div>
+        <label for="level">Level:</label>
+        <div>
+            {{ utility.utility_level }}
+        </div>
+    </div>
+    <div>
+        <label for="CastingTime">Casting Time:</label>
+        <div>
+            {{ utility.casting_time_quantity }} {{ utility.casting_time_unit }}
+        </div>
+    </div>
+    <div>
+        <label for="components">Components:</label>
+        {% for component in utility.components.all %}
+        <div>
+            {{ component.Abbreviation }}
+        </div>
+        {% endfor %}
+    </div>
+    <div>
+        <label for="range">Range:</label>
+        {% if utility.range_type.type == "Ranged" %}
+        <div>
+            {{ utility.range_distance }} feet
+        </div>
+        {% else %}
+        <div>
+            {{ utility.range_type }}
+        </div>
+        {% endif %}
+    </div>
+    <div>
+        <label for="duration">Duration:</label>
+        {% if utility.duration_type.type == "Time" %}
+        <div>
+            {{ utility.duration_quantity }} {{ utility.duration_time_unit.unit }}
+        </div>
+        {% else %}
+        <div>
+            {{ utility.duration_type }}
+        </div>
+        {% endif %}
+    </div>
+    {% if utility.origin %}
+    <div>
+        <label for="origin">Originated from spell:</label>
+        <div>
+            <a href="{{ utility.origin_link }}" target="_blank">{{ utility.origin }}</a>
+        </div>
+    </div>
+    {% endif %}
+    <div>
+        <p>
+            {{ utility.description | linebreaks }}
+        </p>
+        {% if utility.at_higher_levels %}
+        <div>
+            <strong>At higher levels:</strong>
+            <p>
+                {{ utility.at_higher_levels | linebreaks }}
+            </p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<!-- <p>{{ utilty.desciption }}</p> -->
+<!-- <ul>
+{% for choice in question.choice_set.all %}
+    <li>{{ choice.choice_text }}</li>
+{% endfor %}
+</ul> -->

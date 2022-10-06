@@ -1,0 +1,9 @@
+{% if utilities %}
+    <ul>
+    {% for utility in utilities %}
+        <li><a href="/utilities/{{ utility.id }}/">{{ utility.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No utility are available.</p>
+{% endif %}
