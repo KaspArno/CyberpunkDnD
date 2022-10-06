@@ -17,9 +17,13 @@
   </div>
   <div>
     <label for="components">Components:</label>
-    {% for component in utility.components.all %}
-    <div>{{ component.Abbreviation }}</div>
-    {% endfor %}
+    <div>
+      <ul>
+        {% for component in utility.components.all %}
+        <li>{{ component.Abbreviation }}</li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
   <div>
     <label for="range">Range:</label>
