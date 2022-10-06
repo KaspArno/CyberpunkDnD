@@ -1,16 +1,20 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import Http404, HttpResponse
 from django.template import loader
+from django.views import generic
 
 from utilities.models import Utility
 
 
-def index(request):
-    utilities = Utility.objects.all()
-    context = {'utilities': utilities}
-    return render(request, 'utilities/index.html', context)
+class IndexView(generic.ListView):
+    template_name = 'utilities/index.html'
+    context_object_name = 'utilities'
+
+    def get_queryset(self):
+        """Return all untilities."""
+        return Utility.objects.order_by('name')
 
 
-def detail(request, utility_id):
-    utility = get_object_or_404(Utility, pk=utility_id)
-    return render(request, 'utilities/detail.html', {'utility': utility})
+class DetailView(generic.DetailView):
+    model = Utility
+    template_name = 'utilities/detail.html'
