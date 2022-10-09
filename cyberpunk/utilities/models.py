@@ -62,16 +62,19 @@ class Utility(models.Model):
     description = models.TextField(blank=True)
     at_higher_levels = models.TextField(blank=True)
     ritual = models.BooleanField(default=False)
-    utility_level = models.ForeignKey(UtilityLevel, models.SET_DEFAULT, default=0)
-    casting_time_unit = models.ForeignKey(UtilityCastingTimeUnit, models.SET_DEFAULT, default=1)
+    utility_level = models.ForeignKey(
+        UtilityLevel, models.SET_DEFAULT, default=0)
+    casting_time_unit = models.ForeignKey(
+        UtilityCastingTimeUnit, models.SET_DEFAULT, default=1)
     casting_time_quantity = models.IntegerField(null=True)
     reaction_casting_description = models.TextField(blank=True)
     components = models.ManyToManyField(UtilityComponent, blank=True)
-    # material_components = models.TextField(blank=True)
+    material_components = models.TextField(blank=True)
     range_type = models.ForeignKey(RangeType, models.SET_NULL, null=True)
     range_distance = models.IntegerField(null=True, default=0)
     duration_type = models.ForeignKey(DurationType, models.SET_NULL, null=True)
-    duration_time_unit = models.ForeignKey(DurationTimeUnit, on_delete=models.SET_NULL, null=True, blank=True)
+    duration_time_unit = models.ForeignKey(
+        DurationTimeUnit, on_delete=models.SET_NULL, null=True, blank=True)
     duration_quantity = models.IntegerField(null=True, blank=True)
     origin = models.CharField(max_length=25, blank=True)
     origin_link = models.URLField(blank=True)
