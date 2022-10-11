@@ -1,7 +1,26 @@
 body {
-    background-image: url("Pattern-610-10mm-hexagon-e1551742069551-435x435.jpg");
+    background-image: url("hexgrid.png");
+    /* background-color: #012; */
 }
 
-li a {
-    color: green;
+.container {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    background-color: rgb(220, 20, 60, 0.5);
+}
+
+.metadata {
+    /* background-color: aqua; */
+    border: 2px solid mediumslateblue;
+}
+
+.futurpanel {
+    box-sizing: border-box;
+    display: inline-block;
+    font: normal;
+    font-size: 14px/1.2em;
+    background-color: rgba(0, 0, 255, .1);
+    border: 1px solid rgba(0, 0, 255, .2);
+    padding: 0 1em 1em;
 }

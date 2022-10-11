@@ -1,18 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}<title>Cyberpunk Utilities</title>{% endblock %}
+</head>
+
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'utilities/style.css' %}">
+<link href='https://fonts.googleapis.com/css?family=Exo+2:400,900italic,900,800italic,800,700italic,700,600italic,600,500italic,500,400italic,300italic,300,200italic,200,100italic,100' rel='stylesheet' type='text/css'>
 
-<h1>Utilities</h1>
+<body>
+  <div class="container">
+    <h1>Utilities</h1>
+    {% if utilities %}
+    <ul>
+      {% for utility in utilities %}
+      <li><a href="{% url 'detail' utility.id %}">{{ utility.name }}</a></li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No utility are available.</p>
+    {% endif %}
+</div>
+</body>
+</html>
 
-{% if utilities %}
-<ul>
-  {% for utility in utilities %}
-  <li><a href="{% url 'detail' utility.id %}">{{ utility.name }}</a></li>
-  {% endfor %}
-</ul>
-{% else %}
-<p>No utility are available.</p>
-{% endif %}
-
-
-<div class="class1"></div>

@@ -6,7 +6,7 @@ from django.views import generic
 from utilities.models import Utility
 
 
-class IndexView(generic.ListView):
+class UtilityListView(generic.ListView):
     template_name = 'utilities/index.html'
     context_object_name = 'utilities'
 
@@ -15,6 +15,6 @@ class IndexView(generic.ListView):
         return Utility.objects.order_by('name')
 
 
-class DetailView(generic.DetailView):
+class UtilityDetailView(generic.DetailView):
     model = Utility
     template_name = 'utilities/detail.html'
