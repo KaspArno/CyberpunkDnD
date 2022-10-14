@@ -1,26 +1,44 @@
-body {
-    background-image: url("hexgrid.png");
-    /* background-color: #012; */
+html, body {
+    background: url(http://aaronchuo.cc/assets/images/ironwall.jpg) rgba(33,33,33,1) top center no-repeat;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: .1em;
 }
 
 .container {
-    margin: auto;
     width: 50%;
-    border: 3px solid green;
-    background-color: rgb(220, 20, 60, 0.5);
+    position: relative;
+    margin: 50px auto;
+    padding: 0;
+    font-size: 18px;
+    color: #00bebe;
+}
+
+.container * {
+    -webkit-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
+    outline: none;
+}
+
+.details {
+    padding: 50px;
+    border: 1px solid #00bebe;
+    background: rgba(0, 190, 190, 0.1);
+    justify-content: space-between;
 }
 
 .metadata {
-    /* background-color: aqua; */
-    border: 2px solid mediumslateblue;
+    display: flex;
+    justify-content: space-between;
 }
 
-.futurpanel {
-    box-sizing: border-box;
+.metadata-content {
     display: inline-block;
-    font: normal;
-    font-size: 14px/1.2em;
-    background-color: rgba(0, 0, 255, .1);
-    border: 1px solid rgba(0, 0, 255, .2);
-    padding: 0 1em 1em;
+}
+
+.metadata-content label {
+    font-weight: bold;
+}
+
+hr {
+    color: #00bebe;
 }

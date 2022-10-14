@@ -6,7 +6,9 @@
     <link rel="stylesheet" href="{% static 'utilities/style.css' %}">
 </head>
 <body>
-    {% block utility_list %}{% endblock utility_list %}
+    <div class="container">
+        {% block 'content' %}{% endblock %}
+    </div>
 </body>
 
 </html>

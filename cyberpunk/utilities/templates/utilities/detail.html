@@ -1,88 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  {% block title %}<title>Cyberpunk Utilities</title>{% endblock %}
-</head>
+{% extends 'utilities/base.html' %}
 
-{% load static %}
-
-<link rel="stylesheet" href="{% static 'utilities/style.css' %}">
-
-<body>
-  <div class="container">
-    <a href="{% url 'index' %}">Utility List</a>
-    <h1>
-      {{ utility.name }} {% if utility.duration_type.type == "Consentration" %}
-      <span>(Consentration)</span>
-      {% endif %}
-    </h1>
-    <div>
-      <div class="metadata">
+{% block 'content' %}
+  <a href="{% url 'index' %}">Utility List</a>
+  <h1>
+    {{ utility.name }} {% if utility.duration_type.type == "Consentration" %}
+    <span>(Consentration)</span>
+    {% endif %}
+  </h1>
+  <div class="details">
+    <div class="metadata">
+      <div class="metadata-content">
+        <label for="level">Level:</label>
+        <div>{{ utility.utility_level }}</div>
+      </div>
+      <div class="metadata-content">
+        <label for="CastingTime">Casting Time:</label>
         <div>
-          <label for="level">Level:</label>
-          <div>{{ utility.utility_level }}</div>
-        </div>
-        <div>
-          <label for="CastingTime">Casting Time:</label>
-          <div>
-            {{ utility.casting_time_quantity }} {{ utility.casting_time_unit }}
-          </div>
-        </div>
-        <div>
-          <label for="components">Components:</label>
-          <div>
-            <ul>
-              {% for component in utility.components.all %}
-              <li>{{ component.Abbreviation }}</li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-        <div>
-          <label for="range">Range:</label>
-          {% if utility.range_type.type == "Ranged" %}
-          <div>{{ utility.range_distance }} feet</div>
-          {% else %}
-          <div>{{ utility.range_type }}</div>
-          {% endif %}
-        </div>
-        <div>
-          <label for="duration">Duration:</label>
-          {% if utility.duration_time_unit.unit and utility.duration_quantity > 0 %}
-          <div>
-            {{ utility.duration_quantity }} {{ utility.duration_time_unit.unit }}
-          </div>
-          {% else %}
-          <div>{{ utility.duration_type }}</div>
-          {% endif %}
-        </div>
-        {% if utility.origin %}
-        <div>
-          <label for="origin">Originated from spell:</label>
-          <div>
-            <a href="{{ utility.origin_link }}" target="_blank"
-              >{{ utility.origin }}</a
-            >
-          </div>
+          {{ utility.casting_time_quantity }} {{ utility.casting_time_unit }}
         </div>
       </div>
-      {% endif %}
-      <div>
-        <p>{{ utility.description | linebreaks }}</p>
-        {% if utility.at_higher_levels %}
+      <div class="metadata-content">
+        <label for="components">Components:</label>
         <div>
-          <strong>At higher levels:</strong>
-          <p>{{ utility.at_higher_levels | linebreaks }}</p>
+          {% for component in utility.components.all %}
+            {{ component.Abbreviation }}{% if not forloop.last %},{% endif %}
+          {% endfor %}
         </div>
+      </div>
+      <div class="metadata-content">
+        <label for="range">Range:</label>
+        {% if utility.range_type.type == "Ranged" %}
+        <div>{{ utility.range_distance }} feet</div>
+        {% else %}
+        <div>{{ utility.range_type }}</div>
         {% endif %}
       </div>
+      <div class="metadata-content">
+        <label for="duration">Duration:</label>
+        {% if utility.duration_time_unit.unit and utility.duration_quantity > 0 %}
+        <div>
+          {{ utility.duration_quantity }} {{ utility.duration_time_unit.unit }}
+        </div>
+        {% else %}
+        <div>{{ utility.duration_type }}</div>
+        {% endif %}
+      </div>
+      {% if utility.origin %}
+      <div class="metadata-content">
+        <label for="origin">Originated from spell:</label>
+        <div>
+          <a href="{{ utility.origin_link }}" target="_blank"
+            >{{ utility.origin }}</a
+          >
+        </div>
+      </div>
+      {% endif %}
     </div>
-    <!-- <p>{{ utilty.desciption }}</p> -->
-    <!-- <ul>
-    {% for choice in question.choice_set.all %}
-        <li>{{ choice.choice_text }}</li>
-    {% endfor %}
-    </ul> -->
+      <hr>
+    <div class="details-description">
+      <p>{{ utility.description | linebreaks }}</p>
+      {% if utility.at_higher_levels %}
+      <div>
+        <strong>At higher levels:</strong>
+        <p>{{ utility.at_higher_levels | linebreaks }}</p>
+      </div>
+      {% endif %}
+    </div>
   </div>
-</body>
-</html>
+{% endblock 'content' %}
+
+
+
