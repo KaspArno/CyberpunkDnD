@@ -1,5 +1,8 @@
-html, body {
-    background: url(http://aaronchuo.cc/assets/images/ironwall.jpg) rgba(33,33,33,1) top center no-repeat;
+body {
+    /* background: url(http://aaronchuo.cc/assets/images/ironwall.jpg) rgba(33,33,33,1) top center no-repeat; */
+    /* background-image: './hexgrid.png'; */
+    /* background-color: black; */
+    background-image: url("hexgrid_gray_hex_effect.png");
     font-family: 'Rajdhani', sans-serif;
     letter-spacing: .1em;
 }
