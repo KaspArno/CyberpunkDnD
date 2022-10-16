@@ -1,27 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  {% block title %}<title>Cyberpunk Utilities</title>{% endblock %}
-</head>
+{% extends 'utilities/base.html' %}
 
-{% load static %}
+{% block 'header' %}
+<h1>Utilities</h1>
+{% endblock 'header' %}
 
-<link rel="stylesheet" href="{% static 'utilities/style.css' %}">
-<link href='https://fonts.googleapis.com/css?family=Exo+2:400,900italic,900,800italic,800,700italic,700,600italic,600,500italic,500,400italic,300italic,300,200italic,200,100italic,100' rel='stylesheet' type='text/css'>
+{% block 'content' %}
+  {% if utilities %}
+  <table>
+    <tr>
+      <th>Level</th>
+      <th>Name</th>
+      <th>Casting Time</th>
+      <th class="md">Duration</th>
+    </tr>
+    {% for utility in utilities %}
+    <tr class="data-href" onclick="javascript:window.location.href=`{% url 'detail' utility.id %}`; return false;">
+      <td>{{ utility.utility_level }}</td>
+      <td>{{ utility.name }}</td>
+      <td>{{ utility.casting_time_quantity }} {{ utility.casting_time_unit }}</td>
+      {% if utility.duration_type.type == "Time" or utility.duration_type.type == "Consentration" %}
+      <td class="md">{{ utility.duration_quantity }} {{ utility.duration_time_unit }}</td>
+      {% else %}
+      <td class="md">{{ utility.duration_type }}</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p>No utility are available.</p>
+  {% endif %}
+{% endblock 'content' %}
 
-<body>
-  <div class="container">
-    <h1>Utilities</h1>
-    {% if utilities %}
-    <ul>
-      {% for utility in utilities %}
-      <li><a href="{% url 'detail' utility.id %}">{{ utility.name }}</a></li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p>No utility are available.</p>
-    {% endif %}
-</div>
-</body>
-</html>
+
+
 

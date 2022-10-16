@@ -1,12 +1,17 @@
 {% extends 'utilities/base.html' %}
 
+{% block 'nav' %}
+<a href="{% url 'index' %}">Utility List</a>
+{% endblock 'nav' %}
+{% block 'header' %}
+<h1>
+  {{ utility.name }} {% if utility.duration_type.type == "Consentration" %}
+  <span>(Consentration)</span>
+  {% endif %}
+</h1>
+{% endblock 'header' %}
+
 {% block 'content' %}
-  <a href="{% url 'index' %}">Utility List</a>
-  <h1>
-    {{ utility.name }} {% if utility.duration_type.type == "Consentration" %}
-    <span>(Consentration)</span>
-    {% endif %}
-  </h1>
   <div class="details">
     <div class="metadata">
       <div class="metadata-content">
@@ -56,7 +61,7 @@
       </div>
       {% endif %}
     </div>
-      <hr>
+    <hr>
     <div class="details-description">
       <p>{{ utility.description | linebreaks }}</p>
       {% if utility.at_higher_levels %}
