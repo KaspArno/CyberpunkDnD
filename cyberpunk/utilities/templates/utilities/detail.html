@@ -63,7 +63,7 @@
     </div>
     <hr>
     <div class="details-description">
-      <p>{{ utility.description | linebreaks }}</p>
+      <p>{{ utility.description | safe | linebreaks }}</p>
       {% if utility.at_higher_levels %}
       <div>
         <strong>At higher levels:</strong>
