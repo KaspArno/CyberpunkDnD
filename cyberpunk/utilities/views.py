@@ -27,4 +27,4 @@ def utility_list(request):
     context = {
         'utilities_filter': utilities_filter
     }
-    return render(request, "utilities/index_test.html", context)
+    return render(request, "utilities/utility_list.html", context)
