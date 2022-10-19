@@ -1,7 +1,7 @@
 {% extends 'utilities/base.html' %}
 
 {% block 'nav' %}
-<a href="{% url 'index' %}">Utility List</a>
+<a href="{% url 'utility_list' %}">Utility List</a>
 {% endblock 'nav' %}
 {% block 'header' %}
 <h1>
@@ -73,6 +73,34 @@
     </div>
   </div>
 {% endblock 'content' %}
+<div>
+  
+<b>Precipitation</b>
+<table>
+  <thead>
+    <tr>
+      <th>Stage</th><th>Condition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td><td>Clear</td>
+    </tr>
+    <tr>
+      <td>2</td><td>Light clouds</td>
+    </tr>
+    <tr>
+      <td>3</td><td>Overcast or ground fog</td>
+    </tr>
+    <tr>
+      <td>4</td><td>Rain, hail or snow </td>
+    </tr>
+    <tr>
+      <td>5</td><td>Torrential rain, driving hail, or blizzard </td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 
 
