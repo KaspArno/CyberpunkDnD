@@ -1,0 +1,50 @@
+{% extends 'utilities/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block 'header' %}
+<h1>Utilities</h1>
+{% endblock 'header' %}
+
+{% block 'content' %}
+<div>
+  <form method="get">
+    <fieldset>
+      <legend>Filters</legend>
+      {{ utilities_filter.form }}
+      <button>Submit</button>
+    </fieldset>
+  </form>
+</div>
+  {% if utilities_filter.qs %}
+  <table>
+    <thead>
+      <tr>
+        <th>Level</th>
+        <th>Name</th>
+        <th>Casting Time</th>
+        <th class="md">Duration</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for utility in utilities_filter.qs %}
+      <tr class="data-href" onclick="javascript:window.location.href=`{% url 'detail' utility.id %}`; return false;">
+        <td>{{ utility.utility_level }}</td>
+        <td>{{ utility.name }}</td>
+        <td>{{ utility.casting_time_quantity }} {{ utility.casting_time_unit }}</td>
+        {% if utility.duration_type.type == "Time" or utility.duration_type.type == "Consentration" %}
+        <td class="md">{{ utility.duration_quantity }} {{ utility.duration_time_unit }}</td>
+        {% else %}
+        <td class="md">{{ utility.duration_type }}</td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>No utility found.</p>
+  {% endif %}
+{% endblock 'content' %}
+
+
+
+

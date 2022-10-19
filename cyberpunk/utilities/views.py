@@ -4,11 +4,13 @@ from django.template import loader
 from django.views import generic
 
 from utilities.models import Utility
+from utilities.filters import UtilityFilter
 
 
 class UtilityListView(generic.ListView):
     template_name = 'utilities/index.html'
     context_object_name = 'utilities'
+    # listing_filters = UtilityFilter(request.GET, queryset=Utility.objects.all())
 
     def get_queryset(self):
         """Return all untilities."""
@@ -18,3 +20,11 @@ class UtilityListView(generic.ListView):
 class UtilityDetailView(generic.DetailView):
     model = Utility
     template_name = 'utilities/detail.html'
+
+def utility_list(request):
+    utilities = Utility.objects.all()
+    utilities_filter = UtilityFilter(request.GET, queryset=utilities)
+    context = {
+        'utilities_filter': utilities_filter
+    }
+    return render(request, "utilities/index_test.html", context)
