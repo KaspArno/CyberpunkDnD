@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from utilities.models import DurationTimeUnit, DurationType, RangeType, SchoolsOfMagic, Utility, UtilityCastingTimeUnit, UtilityComponent, UtilityLevel
+from utilities.models import DurationTimeUnit, DurationType, RangeType, SchoolsOfMagic, Test, Utility, UtilityCastingTimeUnit, UtilityComponent, UtilityLevel
 
 # admin.site.register(Utility)
 
@@ -22,3 +22,4 @@ class UtilityAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Utility, UtilityAdmin)
+admin.site.register(Test)

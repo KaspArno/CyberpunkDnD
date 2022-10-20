@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 
 class SchoolsOfMagic(models.Model):
@@ -91,3 +92,7 @@ class Utility(models.Model):
 
     class Meta:
         verbose_name_plural = 'Utilities'
+
+
+class Test(models.Model):
+    test_field = RichTextField()
