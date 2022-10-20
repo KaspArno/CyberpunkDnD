@@ -42,6 +42,12 @@ class RangeType(models.Model):
     def __str__(self):
         return self.type
 
+class RangeUnit(models.Model):
+    unit = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.unit
+
 
 class DurationType(models.Model):
     type = models.CharField(max_length=30)
@@ -72,6 +78,7 @@ class Utility(models.Model):
     material_components = models.TextField(blank=True)
     range_type = models.ForeignKey(RangeType, models.SET_NULL, null=True)
     range_distance = models.IntegerField(null=True, default=0)
+    range_unit = models.ForeignKey(RangeUnit, on_delete=models.SET_NULL, null=True)
     duration_type = models.ForeignKey(DurationType, models.SET_NULL, null=True)
     duration_time_unit = models.ForeignKey(
         DurationTimeUnit, on_delete=models.SET_NULL, null=True, blank=True)
