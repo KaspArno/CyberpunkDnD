@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from utilities.models import DurationTimeUnit, DurationType, RangeType, SchoolsOfMagic, Test, Utility, UtilityCastingTimeUnit, UtilityComponent, UtilityLevel
+from utilities.models import AreaType, DurationTimeUnit, DurationType, RangeType, RangeUnit, SchoolsOfMagic, Utility, UtilityCastingTimeUnit, UtilityComponent, UtilityLevel
 
 # admin.site.register(Utility)
 
@@ -11,7 +11,7 @@ class UtilityAdmin(admin.ModelAdmin):
          'utility_level', 'ritual', 'components', 'material_components']}),
         ('Castiong Time', {'fields': [
          'casting_time_quantity', 'casting_time_unit', 'reaction_casting_description']}),
-        ('Range', {'fields': ['range_type', 'range_distance']}),
+        ('Range', {'fields': ['range_type', 'range_distance', 'range_unit', 'aoe', 'aoe_unit', 'aoe_unit_quantity']}),
         ('Duration', {'fields': ['duration_type',
          'duration_quantity', 'duration_time_unit']}),
         ('Origin', {'fields': ['origin', 'origin_link']}),
@@ -22,4 +22,6 @@ class UtilityAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Utility, UtilityAdmin)
-admin.site.register(Test)
+admin.site.register(RangeUnit)
+admin.site.register(DurationTimeUnit)
+admin.site.register(AreaType)
