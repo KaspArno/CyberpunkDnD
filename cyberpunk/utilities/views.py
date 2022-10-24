@@ -3,7 +3,7 @@ from django.http import Http404, HttpResponse
 from django.template import loader
 from django.views import generic
 
-from utilities.models import Test, Utility
+from utilities.models import Utility
 from utilities.filters import UtilityFilter
 
 
@@ -28,6 +28,3 @@ def utility_list(request):
         'utilities_filter': utilities_filter
     }
     return render(request, "utilities/utility_list.html", context)
-
-class TestDetailView(generic.DetailView):
-    model = Test
