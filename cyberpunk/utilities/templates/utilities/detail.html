@@ -28,7 +28,7 @@
         <label for="components">Components:</label>
         <div>
           {% for component in utility.components.all %}
-            {{ component.Abbreviation }}{% if not forloop.last %},{% endif %}
+            {{ component.abbreviation }}{% if not forloop.last %},{% endif %}
           {% endfor %}
         </div>
       </div>

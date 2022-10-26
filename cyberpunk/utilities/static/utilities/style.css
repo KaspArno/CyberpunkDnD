@@ -106,7 +106,7 @@ tbody > tr:nth-child(even) {
     transition: .3s;
   }
 
-tbody > tr:hover {
+.tlink > tbody > tr:hover {
     /* background-color: cyan; */
     box-shadow: 0 0 20px var(--color-Damn-Light) inset, 0 0 10px var(--color-Damn-Light), 0 0 20px var(--color-white);
     border: 1px solid var(--color-Damn-Light);
