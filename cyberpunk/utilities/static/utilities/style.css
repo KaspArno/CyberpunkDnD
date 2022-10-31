@@ -182,6 +182,13 @@ button:hover {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+    .sm {
+        display: none;
+    }
+}
+
+/* Medium devices and down(landscape tablets, 768px and down) */
+@media only screen and (max-width: 768px) {
     .md {
         display: none;
     }

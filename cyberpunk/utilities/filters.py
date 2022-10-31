@@ -11,4 +11,4 @@ class UtilityFilter(django_filters.FilterSet):
 
     class Meta:
         model = Utility
-        fields = {'name': ['icontains'], 'utility_level': ['exact']}
+        fields = {'name': ['icontains'], 'utility_level': ['exact'], 'origin': ['icontains']}
