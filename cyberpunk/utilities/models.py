@@ -76,7 +76,7 @@ class DurationTimeUnit(models.Model):
 
 
 class Utility(models.Model):
-    name = models.CharField(max_length=25, unique=True)
+    name = models.CharField(max_length=50, unique=True)
     description = RichTextField(blank=True)
     # description = models.TextField(blank=True)
     at_higher_levels = RichTextField(blank=True)

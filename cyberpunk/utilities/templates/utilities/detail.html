@@ -21,14 +21,14 @@
       <div class="metadata-content">
         <label for="CastingTime">Casting Time:</label>
         <div>
-          {{ utility.casting_time_quantity }} {{ utility.casting_time_unit }}
+          {{ utility.casting_time_quantity }} {{ utility.casting_time_unit }}{% if utility.casting_time_quantity > 1 %}s{% endif %}
         </div>
       </div>
       <div class="metadata-content">
         <label for="components">Components:</label>
         <div>
           {% for component in utility.components.all %}
-            {{ component.Abbreviation }}{% if not forloop.last %},{% endif %}
+            {{ component.abbreviation }}{% if not forloop.last %},{% endif %}
           {% endfor %}
         </div>
       </div>
@@ -44,7 +44,7 @@
         <label for="duration">Duration:</label>
         {% if utility.duration_time_unit.unit and utility.duration_quantity > 0 %}
         <div>
-          {{ utility.duration_quantity }} {{ utility.duration_time_unit.unit }}
+          {{ utility.duration_quantity }} {{ utility.duration_time_unit.unit }}{% if utility.duration_quantity > 1 %}s{% endif %}
         </div>
         {% else %}
         <div>{{ utility.duration_type }}</div>
@@ -72,7 +72,4 @@
       {% endif %}
     </div>
   </div>
-{% endblock 'content' %}
-
-
-
+{% endblock 'content' %}  

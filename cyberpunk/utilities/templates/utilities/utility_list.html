@@ -15,12 +15,13 @@
   </form>
 </div>
   {% if utilities_filter.qs %}
-  <table>
+  <table class="tlink">
     <thead>
       <tr>
         <th>Level</th>
         <th>Name</th>
-        <th>Casting Time</th>
+        <th class="sm">Casting Time</th>
+        <th class="md">Origin</th>
         <th class="md">Duration</th>
       </tr>
     </thead>
@@ -29,9 +30,10 @@
       <tr class="data-href" onclick="javascript:window.location.href=`{% url 'detail' utility.id %}`; return false;">
         <td>{{ utility.utility_level }}</td>
         <td>{{ utility.name }}</td>
-        <td>{{ utility.casting_time_quantity }} {{ utility.casting_time_unit }}</td>
+        <td class="sm">{{ utility.casting_time_quantity }} {{ utility.casting_time_unit }}{% if utility.casting_time_quantity > 1 %}s{% endif %}</td>
+        <td class="md">{{ utility.origin }}</td>
         {% if utility.duration_type.type == "Time" or utility.duration_type.type == "Consentration" %}
-        <td class="md">{{ utility.duration_quantity }} {{ utility.duration_time_unit }}</td>
+        <td class="md">{{ utility.duration_quantity }} {{ utility.duration_time_unit }}{% if utility.duration_quantity > 1 %}s{% endif %}</td>
         {% else %}
         <td class="md">{{ utility.duration_type }}</td>
         {% endif %}
