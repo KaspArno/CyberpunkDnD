@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'cyberpunk.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'zdcxfuaj',
+        'USER':'zdcxfuaj',
+        'PASSWORD':'PgXI8D05J31clSZp-Us9fYLJpNx9JQXD', 
+        'HOST':'mouse.db.elephantsql.com',
+        'PORT': 5432
     }
 }
 
