@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'ckeditor',
+
+    'classes',
     'utilities'
 ]
 
