@@ -14,6 +14,14 @@ body {
     overflow: overlay;
 }
 
+.content {
+    border: 1px solid var(--color-Damn-Light);
+    background: rgba(0, 190, 190, 0.2);
+    padding: 20px 40px;
+    /* box-shadow: 0px 0px 20px #00bebe; */
+    box-shadow:  0 0 10px var(--color-Damn-Light), 0 0 20px var(--color-Light);
+}
+
 h1 {
     /* text-shadow: 0px 0px 10px black, 0 0 25px rgb(0, 255, 251), 0 0 5px rgb(0, 109, 139);  */
     /* text-shadow: 0px 0px 2px black, 0px 0px 20px #00bebe; */
@@ -62,6 +70,7 @@ table {
     /* border-spacing: 0px 5px; */
     border-spacing:0;
     width: 100%;
+    text-align:center;
 }
 
 th {
@@ -70,12 +79,16 @@ th {
     border-bottom: solid #00bebe;
 }
 
-tbody > tr:nth-child(odd) {
+th, td {
+    max-width: 150px;
+}
+
+tbody > tr:nth-child(odd):not(.header-row) {
     background: none;
     transition: .05s;
 }
 
-tbody > tr:nth-child(even) {
+tbody > tr:nth-child(even):not(.header-row) {
     background: rgba(0, 255, 255, 0.1);
     transition: .05s;
 }
@@ -196,6 +209,13 @@ button:hover {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {}
+
+/* Large devices (laptops/desktops, 1800px and up) */
+@media only screen and (min-width: 2000px) {
+    .container {
+        width: 50%;
+    }
+}
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 /* @media only screen and (min-width: 1200px) {
