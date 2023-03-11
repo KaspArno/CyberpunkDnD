@@ -1,10 +1,11 @@
 from django.contrib import admin
-from .models import Class, SubClass, ClassLevel, SubClassLevel, Feature, Dice, Ability, Skill, ArmorType, WepondType
+from .models import Class, SubClass, ClassLevel, SubClassLevel, Feature, Dice, Ability, Skill, ArmorType, WeaponType, ToolType
 
 class ClassAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Class Information', {'fields': ['name', 'description', 'short_description', 'quick_build']}),
-        ('Class Features', {'fields': ['primary_ability', 'hit_die', 'saves', 'sub_class_name']})
+        ('Class Information', {'fields': ['name', 'description', 'short_description', 'quick_build', 'spell_slot_levels']}),
+        ('Class Proficiencyes', {'fields': ['armor_proficiency', 'weapon_proficiency', 'tool_proficiency', 'saves', 'skills']}),
+        ('Class Features', {'fields': ['primary_ability', 'hit_die', 'sub_class_name', 'class_spesific_features']})
     ]
     list_display = ('name', 'short_description')
     list_filter = ['name', 'primary_ability', 'hit_die', 'saves', 'sub_class_name']
@@ -38,4 +39,5 @@ admin.site.register(Dice)
 admin.site.register(Ability)
 admin.site.register(Skill)
 admin.site.register(ArmorType)
-admin.site.register(WepondType)
+admin.site.register(WeaponType)
+admin.site.register(ToolType)

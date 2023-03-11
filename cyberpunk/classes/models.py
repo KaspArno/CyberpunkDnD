@@ -24,7 +24,7 @@ class Skill(models.Model):
     def __str__(self):
         return self.name
 
-class WepondType(models.Model):
+class WeaponType(models.Model):
     type = models.CharField(max_length=25)
 
     def __str__(self):
@@ -35,6 +35,18 @@ class ArmorType(models.Model):
 
     def __str__(self):
         return self.type
+
+class ToolType(models.Model):
+    type = models.CharField(max_length=25)
+
+    def __str__(self):
+        return self.type
+
+class language(models.Model):
+    name  = models.CharField(max_length=25)
+
+    def __str__(self):
+        return self.name
 
 
 class Dice(models.Model):
@@ -70,7 +82,14 @@ class Class(models.Model):
 
     primary_ability = models.ForeignKey(Ability, related_name='class_primary_ability', on_delete=models.SET_NULL, null=True, blank=True)
     hit_die = models.ForeignKey(Dice, on_delete=models.SET_NULL, null=True, blank=True)
+    armor_proficiency = models.ManyToManyField(ArmorType)
+    weapon_proficiency = models.ManyToManyField(WeaponType)
+    tool_proficiency = models.ManyToManyField(ToolType)
     saves = models.ManyToManyField(Ability, related_name='class_saves')
+    skills = models.ManyToManyField(Skill)
+
+    class_spesific_features = ArrayField(models.CharField(max_length=25), null=True, blank=True)
+    spell_slot_levels = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(9)])
     sub_class_name = models.CharField(max_length=25, blank=True)
 
     def __str__(self):
@@ -94,8 +113,8 @@ class ClassLevel(models.Model):
     level = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(20)])
     cls = models.ForeignKey(Class, on_delete=models.CASCADE)
     proficiency_bonus = models.IntegerField()
-    class_feature = models.ManyToManyField(Feature)
-    class_spesific = models.JSONField(null=True, blank=True)
+    class_feature = models.ManyToManyField(Feature, blank=True)
+    class_spesific = ArrayField(models.CharField(max_length=15), null=True)
     spell_slots = ArrayField(models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(20)]), size=9, null=True)
 
     def __str__(self):
