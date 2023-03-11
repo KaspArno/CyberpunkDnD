@@ -1,0 +1,18 @@
+{% extends 'classes/base_classes.html' %}
+
+{% block 'header' %}
+<h1>Classes</h1>
+{% endblock 'header' %}
+
+{% block 'content' %}
+Classes Page
+{% for class in classes %}
+<ul>
+    <li>{{ class.name }}</li>
+</ul>
+{% endfor %}
+{% endblock 'content' %}
+
+
+
+

@@ -1,0 +1,74 @@
+{% extends 'classes/base_classes.html' %}
+{% load my_tags %}
+
+{% block 'header' %}
+<h1>{{ class.name }}</h1>
+{% endblock 'header' %}
+
+{% block 'content' %}
+<div>
+    <div class="class-description">
+        {{ class.description | safe }}
+    </div>
+    <div class="level-table">
+        <h1>The {{ class.name }} Table</h1>
+        <table>
+            <tr class="header-row">
+                <th rowspan="2">Level</th>
+                <th rowspan="2">Proficiency Bonus</th>
+                <th rowspan="2">Features</th>
+                {% for class_spesific in class.class_spesific_features %}
+                <th rowspan="2">{{class_spesific}}</th>
+                {% endfor %}
+                <th colspan="9" style="border-bottom: none">Spell Slots Per Spell Level</th>
+                
+            </tr>
+            <tr class="header-row">
+                <!-- <td colspan="4"></td> -->
+                {% for i in class.spell_slot_levels|make_sequence %}
+                <th>{{i | add:1 | add_suffix}}</th>
+                {% endfor %}
+            </tr>
+            {% for level in levels %}
+            <tr>
+                <td>{{ level.level }}</td>
+                <td>+{{ level.proficiency_bonus }}</td>
+                <td>
+                    {% for feature in level.class_feature.all %}
+                    <span>{{feature.name}}</span>{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </td>
+                {% for value in level.class_spesific %}
+                <td>{{value}}</td>
+                {% endfor %}
+                {% for slots in level.spell_slots %}
+                <td>{% if slots > 0 %}{{slots}}{% else %} - {% endif %}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="class-features">
+        <h1>Class Features</h1>
+        as s {{class.name}}, you have the following features
+        <h2>Hit Points</h2>
+        <b>Hit Dice:</b> 1{{class.hit_die}} per {{class.name}} level<br>
+        <b>Hit Points At 1st Level:</b> {{class.hit_die}} + your Constitution Modifier<br>
+        <b>Hit Points at Higher Levels:</b> 1{{class.hit_die}} + your Constitution modifier per sentinel level after 1st<br>
+
+        <h2>Proficiencies</h2>
+        <b>Armor Proficiencies:</b> <span>{% for armor_type in armor_proficiencies %} {{armor_type}}{% if not forloop.last %},{% endif %} {% endfor %}</span><br>
+        <b>Armor Proficiencies:</b> <span>{% for weapon_type in weapon_proficiencies %} {{weapon_type}}{% if not forloop.last %},{% endif %} {% endfor %}</span><br>
+        
+        <b>Saving Throws:</b> <span>{% for ability in saves %} {{ability}}{% if not forloop.last %},{% endif %} {% endfor %}</span>
+        {% for feature in features %}
+        <div class="class-feature">
+            <h2>{{ feature.name }}</h2>
+            <div>
+                {{ feature.description | safe}}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock 'content' %}
