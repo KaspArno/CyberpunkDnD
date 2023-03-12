@@ -27,7 +27,7 @@
     </thead>
     <tbody>
       {% for utility in utilities_filter.qs %}
-      <tr class="data-href" onclick="javascript:window.location.href=`{% url 'detail' utility.id %}`; return false;">
+      <tr class="data-href" onclick="javascript:window.location.href=`{% url 'detail' slug=utility.slug %}`; return false;">
         <td>{{ utility.utility_level }}</td>
         <td>{{ utility.name }}</td>
         <td class="sm">{{ utility.casting_time_quantity }} {{ utility.casting_time_unit }}{% if utility.casting_time_quantity > 1 %}s{% endif %}</td>

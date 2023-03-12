@@ -3,6 +3,7 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils.text import slugify
 
 class Ability(models.Model):
     name = models.CharField(max_length=15)
@@ -93,8 +94,15 @@ class Class(models.Model):
     sub_class_name = models.CharField(max_length=25, blank=True)
     sub_class_description = models.TextField(blank=True)
 
+    slug = models.SlugField(unique=True, blank=True)
+
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
     
     class Meta:
         verbose_name_plural = "Classes"

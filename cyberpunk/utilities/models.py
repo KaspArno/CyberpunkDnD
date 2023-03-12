@@ -2,7 +2,7 @@ from email.policy import default
 from re import A
 from django.db import models
 from ckeditor.fields import RichTextField
-# from djrichtextfield.models import RichTextField
+from django.utils.text import slugify
 
 
 class SchoolsOfMagic(models.Model):
@@ -105,8 +105,15 @@ class Utility(models.Model):
     origin = models.CharField(max_length=25, blank=True)
     origin_link = models.URLField(blank=True)
 
+    slug = models.SlugField(unique=True, blank=True)
+
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = 'Utilities'
