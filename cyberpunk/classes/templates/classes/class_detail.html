@@ -70,5 +70,23 @@
         </div>
         {% endfor %}
     </div>
+    {% if class.sub_class_name %}
+    <div>
+        <h1>{{class.sub_class_name}}</h1>
+        {% if sub_class_description %}
+        <p>{{class.sub_class_description}}</p>
+        {% endif %}
+        {% for subclass in object.subclass_set.all %}
+        <h2>{{subclass.name}}</h2>
+        <p>{{subclass.description | safe}}</p>
+        {% for subclasslevel in subclass.subclasslevel_set.all %}
+        {% for feature in subclasslevel.class_feature.all %}
+        <h3>{{feature}}</h3>
+        <p>{{feature.description | safe}}</p>
+        {% endfor %}
+        {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
 </div>
 {% endblock 'content' %}

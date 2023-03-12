@@ -91,6 +91,7 @@ class Class(models.Model):
     class_spesific_features = ArrayField(models.CharField(max_length=25), null=True, blank=True)
     spell_slot_levels = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(9)])
     sub_class_name = models.CharField(max_length=25, blank=True)
+    sub_class_description = models.TextField(blank=True)
 
     def __str__(self):
         return self.name

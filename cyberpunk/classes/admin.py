@@ -3,9 +3,9 @@ from .models import Class, SubClass, ClassLevel, SubClassLevel, Feature, Dice, A
 
 class ClassAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Class Information', {'fields': ['name', 'description', 'short_description', 'quick_build', 'spell_slot_levels']}),
+        ('Class Information', {'fields': ['name', 'description', 'short_description', 'quick_build', 'spell_slot_levels', 'sub_class_name', 'sub_class_description']}),
         ('Class Proficiencyes', {'fields': ['armor_proficiency', 'weapon_proficiency', 'tool_proficiency', 'saves', 'skills']}),
-        ('Class Features', {'fields': ['primary_ability', 'hit_die', 'sub_class_name', 'class_spesific_features']})
+        ('Class Features', {'fields': ['primary_ability', 'hit_die', 'class_spesific_features']})
     ]
     list_display = ('name', 'short_description')
     list_filter = ['name', 'primary_ability', 'hit_die', 'saves', 'sub_class_name']
@@ -22,7 +22,6 @@ class ClassLevelAdmin(admin.ModelAdmin):
     search_fields = ['level', 'cls']
 
 class SubClassLevelAdmin(admin.ModelAdmin):
-    list_display = ('class_level', 'sub_class')
     list_filter = ['class_level', 'sub_class']
 
 class FeatureAdmin(admin.ModelAdmin):
