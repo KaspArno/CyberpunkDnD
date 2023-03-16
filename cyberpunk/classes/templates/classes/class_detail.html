@@ -24,8 +24,7 @@
                 
             </tr>
             <tr class="header-row">
-                <!-- <td colspan="4"></td> -->
-                {% for i in class.spell_slot_levels|make_sequence %}
+                {% for i in class.utility_slot_levels|make_sequence %}
                 <th>{{i | add:1 | add_suffix}}</th>
                 {% endfor %}
             </tr>
@@ -35,13 +34,13 @@
                 <td>+{{ level.proficiency_bonus }}</td>
                 <td>
                     {% for feature in level.class_feature.all %}
-                    <span>{{feature.name}}</span>{% if not forloop.last %},{% endif %}
+                    <span><a href="#{{feature.id}}">{{feature.name}}</a></span>{% if not forloop.last %},{% endif %}
                     {% endfor %}
                 </td>
                 {% for value in level.class_spesific %}
                 <td>{{value}}</td>
                 {% endfor %}
-                {% for slots in level.spell_slots %}
+                {% for slots in level.utility_slots %}
                 <td>{% if slots > 0 %}{{slots}}{% else %} - {% endif %}</td>
                 {% endfor %}
             </tr>
@@ -62,7 +61,7 @@
         
         <b>Saving Throws:</b> <span>{% for ability in saves %} {{ability}}{% if not forloop.last %},{% endif %} {% endfor %}</span>
         {% for feature in features %}
-        <div class="class-feature">
+        <div class="class-feature" id="{{feature.id}}">
             <h2>{{ feature.name }}</h2>
             <div>
                 {{ feature.description | safe}}
@@ -71,22 +70,60 @@
         {% endfor %}
     </div>
     {% if class.sub_class_name %}
-    <div>
-        <h1>{{class.sub_class_name}}</h1>
-        {% if sub_class_description %}
-        <p>{{class.sub_class_description}}</p>
-        {% endif %}
-        {% for subclass in object.subclass_set.all %}
-        <h2>{{subclass.name}}</h2>
-        <p>{{subclass.description | safe}}</p>
-        {% for subclasslevel in subclass.subclasslevel_set.all %}
-        {% for feature in subclasslevel.class_feature.all %}
-        <h3>{{feature}}</h3>
-        <p>{{feature.description | safe}}</p>
-        {% endfor %}
-        {% endfor %}
-        {% endfor %}
-    </div>
+        <div>
+            <h1>{{class.sub_class_name}}</h1>
+            {% if sub_class_description %}
+                <p>{{class.sub_class_description}}</p>
+            {% endif %}
+            {% for subclass in object.subclass_set.all %}
+                <h2>{{subclass.name}}</h2>
+                <p>{{subclass.description | safe}}</p>
+                <h3>{{subclass.name}} Levels</h3>
+                <table>
+                    <tr>
+                        <th>Class Level</th>
+                        <th>Features</th>
+                        {% if subclass.hasSpells %}
+                            <th>Utilities</th>
+                        {% endif %}
+                    </tr>
+                    {% for subclasslevel in subclass.subclasslevel_set.all %}
+                        {% if subclasslevel.utilities.all.count > 0 or subclasslevel.class_feature.all.count > 0 %}
+                            <tr>
+                                <td>
+                                    {{subclasslevel.class_level.level | add_suffix}}
+                                </td>
+                                <td>
+                                    {% for feature in subclasslevel.class_feature.all %}
+                                        <a href="#{{feature.id}}">
+                                            {{feature.name}}
+                                        </a>{% if not forloop.last %},{% endif %}
+                                    {% endfor %}
+                                </td>
+                                {% if subclass.hasSpells %}
+                                    <td>
+                                        {% for utility in subclasslevel.utilities.all %}
+                                            <a href="{% url 'utilities:detail' slug=utility.slug %}">
+                                                {{utility}}
+                                            </a>{% if not forloop.last %},{% endif %}
+                                        {% endfor %}
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+                <p>{{subclass.description | safe}}</p>
+                {% for subclasslevel in subclass.subclasslevel_set.all %}
+                    {% for feature in subclasslevel.class_feature.all %}
+                        <div class="class-features" id="{{feature.id}}">
+                            <h3>{{feature}}</h3>
+                            <p>{{feature.description | safe}}</p>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+        </div>
     {% endif %}
 </div>
 {% endblock 'content' %}

@@ -1,12 +1,20 @@
+from django import forms
 from django.contrib import admin
 from .models import Class, SubClass, ClassLevel, SubClassLevel, Feature, Dice, Ability, Skill, ArmorType, WeaponType, ToolType
 
+class Test(admin.TabularInline):
+    model = Class.class_utilities.through
+    extra = 1
+    sortable_field_name = "utility_level"
+
 class ClassAdmin(admin.ModelAdmin):
+    inlines = [Test]
     fieldsets = [
-        ('Class Information', {'fields': ['name', 'description', 'short_description', 'quick_build', 'spell_slot_levels', 'sub_class_name', 'sub_class_description']}),
+        ('Class Information', {'fields': ['name', 'description', 'short_description', 'quick_build', 'utility_slot_levels', 'sub_class_name', 'sub_class_description']}),
         ('Class Proficiencyes', {'fields': ['armor_proficiency', 'weapon_proficiency', 'tool_proficiency', 'saves', 'skills']}),
         ('Class Features', {'fields': ['primary_ability', 'hit_die', 'class_spesific_features']})
     ]
+    widget = {'utilities': forms.CheckboxSelectMultiple(attrs={'class': 'list-unstyled'})}
     list_display = ('name', 'short_description')
     list_filter = ['name', 'primary_ability', 'hit_die', 'saves', 'sub_class_name']
     search_fields = ['name']

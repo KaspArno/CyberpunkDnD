@@ -4,6 +4,7 @@ from ckeditor.fields import RichTextField
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.text import slugify
+from utilities.models import Utility
 
 class Ability(models.Model):
     name = models.CharField(max_length=15)
@@ -90,7 +91,8 @@ class Class(models.Model):
     skills = models.ManyToManyField(Skill)
 
     class_spesific_features = ArrayField(models.CharField(max_length=25), null=True, blank=True)
-    spell_slot_levels = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(9)])
+    class_utilities = models.ManyToManyField(Utility, blank=True)
+    utility_slot_levels = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(9)])
     sub_class_name = models.CharField(max_length=25, blank=True)
     sub_class_description = models.TextField(blank=True)
 
@@ -112,6 +114,16 @@ class SubClass(models.Model):
     description = RichTextField(blank=True)
     cls = models.ForeignKey(Class, on_delete=models.CASCADE)
 
+    # @property
+    # def sorted_subclasslevel_set(self):
+    #     return self.subclasslevel_set.order_by('class_level__level')
+
+    def hasSpells(self):
+        levels = self.subclasslevel_set.all()
+        for level in levels:
+            if (level.utilities): return True
+        return False
+
     def __str__(self):
         return self.name
     
@@ -124,7 +136,8 @@ class ClassLevel(models.Model):
     proficiency_bonus = models.IntegerField()
     class_feature = models.ManyToManyField(Feature, blank=True)
     class_spesific = ArrayField(models.CharField(max_length=15), null=True)
-    spell_slots = ArrayField(models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(20)]), size=9, null=True)
+    utility_slots = ArrayField(models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(20)]), size=9, null=True)
+    utilities = models.ManyToManyField(Utility, blank=True)
 
     def __str__(self):
         return f"{self.level}: {self.cls}"
@@ -132,8 +145,13 @@ class ClassLevel(models.Model):
 class SubClassLevel(models.Model):
     sub_class = models.ForeignKey(SubClass, on_delete=models.CASCADE)
     class_level = models.ForeignKey(ClassLevel, on_delete=models.CASCADE)
-    class_feature = models.ManyToManyField(Feature)
+    class_feature = models.ManyToManyField(Feature, blank=True)
+    utilities = models.ManyToManyField(Utility, blank=True)
 
     def __str__(self):
         return f"{self.class_level.level}: {self.sub_class}"
+    
+    class Meta:
+        ordering = ['class_level__level']
+
 
