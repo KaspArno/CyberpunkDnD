@@ -114,6 +114,7 @@
                     {% endfor %}
                 </table>
                 <p>{{subclass.description | safe}}</p>
+                <h3>{{subclass.name}} Features</h3>
                 {% for subclasslevel in subclass.subclasslevel_set.all %}
                     {% for feature in subclasslevel.class_feature.all %}
                         <div class="class-features" id="{{feature.id}}">

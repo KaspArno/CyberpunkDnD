@@ -2,13 +2,19 @@ from django import forms
 from django.contrib import admin
 from .models import Class, SubClass, ClassLevel, SubClassLevel, Feature, Dice, Ability, Skill, ArmorType, WeaponType, ToolType
 
-class Test(admin.TabularInline):
+class ClassUtilitiesInline(admin.TabularInline):
     model = Class.class_utilities.through
     extra = 1
     sortable_field_name = "utility_level"
 
+class ClassLevelInline(admin.TabularInline):
+    model = ClassLevel
+
+class SubClassLevelInline(admin.TabularInline):
+    model = SubClassLevel
+
 class ClassAdmin(admin.ModelAdmin):
-    inlines = [Test]
+    inlines = [ClassLevelInline, ClassUtilitiesInline]
     fieldsets = [
         ('Class Information', {'fields': ['name', 'description', 'short_description', 'quick_build', 'utility_slot_levels', 'sub_class_name', 'sub_class_description']}),
         ('Class Proficiencyes', {'fields': ['armor_proficiency', 'weapon_proficiency', 'tool_proficiency', 'saves', 'skills']}),
@@ -20,6 +26,7 @@ class ClassAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 class SubClassAdmin(admin.ModelAdmin):
+    inlines = [SubClassLevelInline]
     list_display = ('name', 'cls', 'description')
     list_filter = ['name', 'cls']
     search_fields = ['name', 'cls']
