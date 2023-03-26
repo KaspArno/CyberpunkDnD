@@ -1,1 +1,1 @@
-web: gunicorn cyberpunk.cyberpunk.wsgi --log-file -
+web: python cyberpunk\manage.py runserver 0.0.0.0:8000
